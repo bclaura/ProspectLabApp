@@ -1,0 +1,92 @@
+﻿@page
+@model ProspectLabApp.Pages.OffersModel
+@{
+}
+
+
+<h1 class="offers-title">Ofertele saptamanii</h1>
+<div id="pager"></div>
+<body class="jgrid-footer no-margin">
+    @Html.AntiForgeryToken()
+
+    <div class="grid-box">
+        <table id="grid"></table>
+    </div>
+
+</body>
+
+<script>
+
+    
+        // Set the breakpoint for small screens
+        var smallScreenSize = 768;
+
+        // Check if the screen width is less than the breakpoint
+        var isSmallScreen = $(window).width() < smallScreenSize;
+
+        var products = @Html.Raw(Model.ProductsJson);
+
+                $("#grid").jqGrid({
+                    datatype: 'local',
+                    data: products,
+                    colModel: [
+                        { name: 'Title', label: 'Produs', width: 500, classes: 'title-cell' },
+                        { name: 'Brand', label: 'Firma', width: 250, align: 'center', hidden: isSmallScreen },
+                        { name: 'Quantity', label: 'Cantitate', width: 150, align: 'center', hidden: isSmallScreen },
+                        { name: 'Discount', label: 'Reducere', width: 100, align: 'center', hidden: isSmallScreen },
+                        { name: 'Price', label: 'Pret', width: 75, align: 'center' },
+                        { name: 'AddToShoppingList', label: isSmallScreen ? "Adauga" : "Adauga in lista", formatter: addButtonFormatter, align: 'center' }
+                    ],
+                    height: 'auto',
+                    rowNum: 20,
+                    rowList: [10, 20, 30, 50, 100],
+                    viewrecords: true,
+                    pager: '#pager',
+                    autowidth: true,
+                    schrinkToFit: false,
+                });
+
+
+    function addButtonFormatter(cellvalue, options, rowObject) {
+        return `<button class="add-to-list-button" onclick="addToShoppingList('${rowObject.Id}')"><i class="fa-solid fa-cart-shopping"></i> </button>`;
+    }
+
+
+    function addToShoppingList(productId) {
+        console.log('Product ID:', productId);
+        $.ajax({
+            type: 'POST',
+            url: '/Offers?handler=AddToCart',
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            data: { "productId": productId },
+            success: function (data) {
+                var newCartCount = getCartCount();
+                updateCartCount(newCartCount);
+            },
+            error: function (error) {
+
+            }
+        });
+        return false;
+    }
+
+    function getCartCount() {
+        var cartCount = 0;
+
+        $.ajax({
+            type: 'GET',
+            url: '/Offers?handler=GetCartCount',
+            async: false,
+            success: function (data) {
+                cartCount = data;
+            },
+            error: function (erorr) {
+
+            }
+        });
+
+        return cartCount;
+    }
+</script>

@@ -1,0 +1,253 @@
+﻿@page
+@model ProspectLabApp.Pages.ShoppingListModel
+@{
+}
+
+<body class="shopping-footer">
+    @Html.AntiForgeryToken()
+    <h2 class="title-shopping-list">Lista de cumparaturi</h2>
+    @if (Model.Products == null || Model.Products.Count == 0)
+    {
+        <p class="cart-empty">Nu ai nimic pe lista.</p>
+    }
+    else
+    {
+        <div class="container">
+            <div class="row row-top">
+                <div class="col-sm-5">Produse</div>
+                <div class="col-sm-3">Firma</div>
+                <div class="col-sm-1">Pret</div>
+                <div class="col-sm-2">Cantitate</div>
+                <div class="col-sm-1"></div>
+            </div>
+            @{var cartProducts = Model._cartManager.GetCartProducts();
+            }
+            @foreach (var product in Model.Products)
+            {
+                var quantity = cartProducts.First(a => a.ProductId == product.Id).Q;
+                <div class="row row-hover" id="product_@product.Id" onclick="cutoutProduct(event, '@product.Id')">
+                    <div class="col-sm-5">@product.Title</div>
+                    <div class="col-sm-3">@product.Brand</div>
+                    <div class="col-sm-1">@product.Price</div>
+                    <div class="col-sm-2" id="quantity_@product.Id">@quantity</div>
+                    <div class="col-sm-1">
+                        <a href="#"
+                           id="trash_@product.Id"
+                           onclick="deleteProduct('@product.Id')"
+                           style="display: none">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                        <a href="#" onclick="increaseQuantity('@product.Id')">
+                            <i class="fa-solid fa-square-plus"></i>
+                        </a>
+                        <a href="#"
+                           id="reduce_@product.Id"
+                           onclick="reduceQuantity('@product.Id')"
+                           style="display: @(quantity > 1 ? "inline" : "none")">
+                            <i class="fa-solid fa-square-minus"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+            <div class="row row-top">
+                <div class="col-sm-5">Total</div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-1" id="totalPrice"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div>
+        <div class="text-center shopping-buttons">
+            <button id="delete-cutout" class="btn btn-danger">Sterge produsele selectate</button>
+            <button id="delete-all" class="btn btn-warning">Creeaza o lista noua</button>
+        </div>
+
+    }
+</body>
+
+<script>
+    function reduceQuantity(productId) {
+        $.ajax({
+            type: 'POST',
+            url: '/ShoppingList?handler=ReduceQuantity',
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            data: { "productId": productId },
+            success: function (data) {
+                // Find the element that displays the product's quantity
+                var quantityElement = document.querySelector('#quantity_' + productId);
+
+                // Update the text of the quantity element
+                var currentQuantity = parseInt(quantityElement.textContent);
+                quantityElement.textContent = currentQuantity - 1;
+
+                // If the new quantity is 1, hide the "-" button
+                if (currentQuantity - 1 == 1) {
+                    var reduceButton = document.querySelector('#reduce_' + productId);
+                    reduceButton.style.display = 'none';
+                }
+                calculateTotalPrice()
+            },
+            error: function (error) {
+
+            }
+        });
+    }
+    function increaseQuantity(productId) {
+        $.ajax({
+            type: 'POST',
+            url: '/ShoppingList?handler=IncreaseQuantity',
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            data: { "productId": productId },
+            success: function (data) {
+                var quantityElement = document.querySelector('#quantity_' + productId);
+
+                var currentQuantity = parseInt(quantityElement.textContent);
+
+                quantityElement.textContent = currentQuantity + 1;
+
+                if (currentQuantity + 1 > 1) {
+                    var reduceButton = document.querySelector('#reduce_' + productId)
+                    reduceButton.style.display = 'inline';
+                }
+                calculateTotalPrice()
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function cutoutProduct(event, productId) {
+        if (event.target.closest('a')) {
+            event.stopPropagation();
+            return;
+        }
+
+        var productRow = document.querySelector('#product_' + productId);
+        var columns = productRow.querySelectorAll('div[class^="col-sm-"]');
+        var trashButton = document.querySelector('#trash_' + productId)
+
+        var isCutout = columns[0].classList.contains('cutout');
+        for (var i = 0; i < columns.length - 1; i++) {
+            columns[i].classList.toggle('cutout');
+        }
+
+        trashButton.style.display = isCutout ? 'none' : 'inline';
+    }
+
+    function deleteProduct(productId) {
+        $.ajax({
+            type: 'POST',
+            url: '/ShoppingList?handler=DeleteProduct',
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            data: { "productId": productId },
+            success: function (data) {
+                var productRow = document.querySelector('#product_' + productId);
+                if (productRow) {
+                    productRow.remove();
+                }
+
+                var newCartCount = getCartCount();
+                updateCartCount(newCartCount);
+                calculateTotalPrice()
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function deleteProducts(productIds) {
+        $.ajax({
+            type: 'POST',
+            url: '/ShoppingList?handler=DeleteProducts',
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            data: { "productIds": productIds },
+            success: function (data) {
+                for (let i = 0; i < productIds.length; i++) {
+                    var productRow = document.querySelector('#product_' + productIds[i]);
+                    if (productRow) {
+                        productRow.remove();
+                    }
+                }
+                var newCartCount = getCartCount();
+                updateCartCount(newCartCount);
+                calculateTotalPrice();
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function getCartCount() {
+        var cartCount = 0;
+
+        $.ajax({
+            type: 'GET',
+            url: '/ShoppingList?handler=GetCartCount',
+            async: false,
+            success: function (data) {
+                cartCount = data;
+            },
+            error: function (erorr) {
+            }
+        });
+        return cartCount;
+    }
+
+    function calculateTotalPrice() {
+        var productElements = document.querySelectorAll('.row-hover');
+
+        var totalPrice = 0;
+
+        for (var i = 0; i < productElements.length; i++) {
+            var productElement = productElements[i];
+
+            var priceElement = productElement.querySelector('.col-sm-1:nth-child(3)');
+            var quantityElement = productElement.querySelector('.col-sm-2');
+
+            var price = parseFloat(priceElement.textContent);
+            var quantity = parseInt(quantityElement.textContent);
+
+            totalPrice += price * quantity;
+        }
+
+        var totalPriceElement = document.querySelector('#totalPrice');
+        if (totalPriceElement) {
+            totalPriceElement.textContent = totalPrice.toFixed(2);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateTotalPrice);
+
+    $("#delete-cutout").click(function () {
+        var products = $("div[id^='product_']:has(.cutout)");
+        var productIds = [];
+        for (let i = 0; i < products.length; i++) {
+            var fullId = $(products[i]).attr("id");
+            var productId = fullId.replace('product_', '').replace('.row.row-hover', '');
+            productIds.push(productId);
+        }
+        deleteProducts(productIds);
+    });
+
+    function deleteAllProducts() {
+        document.cookie = "cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        location.reload();
+    }
+
+    $("#delete-all").click(function () {
+        deleteAllProducts();
+    });
+
+</script>
+
+
+
+

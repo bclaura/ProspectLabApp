@@ -1,0 +1,522 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    margin-bottom: 250px;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    body {
+        margin-bottom: 500px;
+    }
+}
+
+
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+header {
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body.no-margin {
+    margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+    body.no-margin {
+        margin-bottom: 0 !important;
+    }
+}
+
+@media (min-width: 769px) {
+    body.no-margin {
+        margin-bottom: 0 !important;
+    }
+}
+
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.body-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    max-width: 100%;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+h5 {
+    font-size: 25px;
+}
+
+h6 {
+    font-size: 15px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+header {
+    background-color: cadetblue;
+}
+
+a {
+    text-decoration: none;
+}
+
+body, .navbar {
+    padding: 0 !important;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-item i {
+    margin-right: 10px;
+}
+
+.nav-item {
+    text-decoration: none;
+    width: 50%;
+    text-align: center;
+    color: white;
+    box-sizing: border-box;
+}
+
+.nav-link {
+    display: block;
+    transition: background-color 0.3s;
+    padding: 8px;
+}
+
+    .nav-link:hover {
+        color: white;
+        background-color: black;
+    }
+
+.title {
+    display: flex;
+    justify-content: center;
+    background-color: #a2daf2;
+}
+
+.logo-top {
+    height: 75px;
+    width: auto;
+    margin: 15px;
+}
+
+@media (max-width: 590px) {
+    .logo-top {
+        height: 35px;
+    }
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background: white;
+}
+
+.grid-item {
+    width: 100%;
+    transition: filter 0.3s;
+}
+
+.image-container {
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.8);
+}
+
+.icon {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 0.3s;
+    color: white;
+}
+
+    .icon i {
+        font-size: 50px;
+    }
+
+.imgtitle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4vw;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+    line-height: 60px;
+}
+
+@media (max-width: 767px) {
+    .imgtitle {
+        font-size: 6vh;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .imgtitle {
+        font-size: 5vh;
+        line-height: 40px;
+    }
+}
+
+.image:hover .icon {
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.image:hover .imgtitle {
+    opacity: 1;
+}
+
+.image-container:hover .grid-item {
+    filter: brightness(70%);
+}
+
+#bannerimage {
+    background-image: url(../Content/Images/banner.jpg);
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-text {
+    font-size: 3rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.grid-footer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.left-column h5 {
+    text-align: start;
+}
+
+.left-column ul {
+    padding: 0;
+    margin: 15px;
+}
+
+.left-column {
+    text-align: center;
+}
+
+.fa-facebook, .fa-instagram, .fa-twitter {
+    font-size: 30px;
+    padding: 0px 0px 10px 25px;
+    color: black;
+    transition: color 0.3s;
+}
+
+    .fa-facebook, .fa-instagram, .fa-twitter a:visited {
+        color: black;
+    }
+
+.fa-brands:hover {
+    color: white;
+}
+
+.bottom-title, .slogan {
+    margin: 15px;
+}
+
+.slogan {
+    padding: 3px 5px 0px 0px;
+    font-weight: 500;
+}
+
+.links {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+
+.infos a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s;
+}
+
+.infos {
+    font-size: 15px;
+}
+
+    .infos a:hover {
+        color: #fff;
+    }
+
+#newsletter {
+    display: flex;
+    justify-content: center;
+    align-content: normal;
+    margin-top: 22px;
+}
+
+@media screen and (max-width: 768px) {
+    #newsletter {
+        margin-top: 0;
+    }
+}
+
+.newsletter-container {
+    max-width: 500px;
+    padding: 0 20px 20px 20px;
+}
+
+    .newsletter-container h5 {
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+.input-container {
+    display: flex;
+}
+
+    .input-container input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 5px 0 0 5px;
+        border: none;
+    }
+
+    .input-container button {
+        padding: 10px 20px;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 0 5px 5px 0;
+    }
+
+        .input-container button:hover {
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
+            cursor: pointer;
+        }
+
+.ui-jqgrid {
+    font-size: 16px !important;
+}
+
+    .ui-jqgrid .ui-jqgrid-titlebar {
+        height: 21px !important;
+    }
+
+#grid {
+    margin: 0;
+}
+
+.grid-box {
+    display: flex;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.offers-title {
+    text-align: center;
+}
+
+.ui-pg-selbox {
+    float: left !important;
+}
+
+.fa-regular.fa-square-plus,
+.fa-solid.fa-cart-shopping {
+    cursor: pointer;
+}
+
+
+
+.fa-square-plus, .fa-square-minus, .fa-trash {
+    font-size: 22px;
+    margin-top: 2px;
+    padding-left: 5px;
+}
+
+    .fa-square-plus:hover, .fa-square-minus:hover, .fa-trash:hover {
+        filter: brightness(85%);
+    }
+
+
+.row {
+    border-bottom: 1px solid #ddd;
+}
+
+.row-top {
+    font-weight: 700;
+}
+
+.row-hover:hover {
+    background-color: #f5f5f5;
+}
+
+.title-shopping-list {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.cart-empty {
+    text-align: center;
+}
+
+.cutout {
+    text-decoration: line-through;
+}
+
+.fa-trash {
+    color: indianred;
+}
+
+.fa-square-plus, .fa-square-minus {
+    color: mediumseagreen;
+}
+
+.cart-count {
+    display: inline-block;
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    background-color: #f00;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    position: relative;
+    top: -13px;
+}
+
+.ui-jqgrid-pager {
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .grid-footer-container {
+        grid-template-columns: 1fr;
+    }
+
+
+    .right-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bottom-title, .slogan {
+        margin: 10px;
+        text-align: center;
+    }
+
+    .sticky-footer {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+.container {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.shopping-buttons {
+    padding-top: 20px;
+}
+
+.add-to-list-button {
+    background-color: mediumseagreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.fa-cart-shopping {
+    position: relative;
+    left: 1px;
+}
+
+.add-to-list-button:hover {
+    background-color: #297c4e;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+@media (max-width: 768px) {
+    .add-to-list-button {
+        width: auto; 
+        height: auto;
+        padding: 0;
+        border-radius: 0;
+    }
+}
+
+.title-cell {
+    padding-left: 10px !important;
+}

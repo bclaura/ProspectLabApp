@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<body>
+    <div>
+        <div class="grid-container ">
+            <div class="image-container">
+                <div class="image">
+                    <a href="#"><img class="dairy grid-item" src="@Url.Content("~/img/dairy.png")" alt="Oferta 1" /></a>
+                    <div class="imgtitle">Lactate</div>
+                    <div class="icon"><i class="fa-solid fa-circle-arrow-right"></i></div>
+                </div>
+            </div>
+            <div class="image-container">
+                <div class="image">
+                    <a href="#"><img class="fruits grid-item" src="@Url.Content("~/img/fruits_and_vegetables.png")" alt="Oferta 2" /></a>
+                    <div class="imgtitle">Fructe legume</div>
+                    <div class="icon"><i class="fa-solid fa-circle-arrow-right"></i></div>
+                </div>
+            </div>
+            <div class="image-container">
+                <div class="image">
+                    <a href="#"><img class="meat grid-item" src="@Url.Content("~/img/raw_meat.png")" alt="Oferta 3" /></a>
+                    <div class="imgtitle">Carne</div>
+                    <div class="icon"><i class="fa-solid fa-circle-arrow-right"></i></div>
+                </div>
+            </div>
+            <div class="image-container">
+                <div class="image">
+                    <a href="#"><img class="drinks grid-item" src="@Url.Content("~/img/drinks.png")" alt="Oferta 4" /></a>
+                    <div class="imgtitle">Bauturi</div>
+                    <div class="icon"><i class="fa-solid fa-circle-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div id="bannerimage">
+            <p class="banner-text">Descopera cele mai noi oferte ale saptamanii</p>
+        </div>
+    </div>
+</body>
