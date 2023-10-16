@@ -1,5 +1,13 @@
 # ProspectLabApp
 
+I created a supermarket PDF converter app, a powerful ASP.NET web application built with Razor Pages. This tool is meant to simplify your grocery shopping experience by transforming a PDF leaflet into an organized, digital shopping list.
+
+Technologies used:
+C# with Razor Pages for seamless web development.
+CSS and HTML for a visually appealing and user-friendly interface
+JavaScript for interactive and dynamic functionalities.
+Entity Framework for efficient data management and SQLExpress integration.
+
 ![mainpage](https://github.com/bclaura/ProspectLabApp/assets/124773748/7a009c6a-6653-4490-85c2-2c29018be728)
 
 ![mainpage-images](https://github.com/bclaura/ProspectLabApp/assets/124773748/a61ab447-5fb5-4621-9551-5bbf0ca492ee)
@@ -28,4 +36,4 @@
 
 ![mobile-grid-list](https://github.com/bclaura/ProspectLabApp/assets/124773748/2b8b7d8f-757b-4684-865a-4e09f964bdb4)
 
-![mobile-shopping-list](https://github.com/bclaura/ProspectLabApp/assets/124773748/26b14954-39bd-4c0a-98bf-cbf1bff5680f)
+<img src="https://github.com/bclaura/ProspectLabApp/assets/124773748/26b14954-39bd-4c0a-98bf-cbf1bff5680f" width="50%">
