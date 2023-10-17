@@ -9,13 +9,17 @@ Technologies used:
 * Entity Framework for efficient data management and SQLExpress integration.
 
 # How to run
-1. 
-Install the following:
-https://visualstudio.microsoft.com/vs/community/
-https://www.microsoft.com/en-us/download/details.aspx?id=101064
-2. 
-Clone the repository
-3. 
+1. Install the following: <br>
+<a href="https://visualstudio.microsoft.com/vs/community/">Visual Studio 2022</a> <br>
+In the Visual Studio Installer, verify that ASP.NET and web development and Data storage and processing are installed. <br>
+<a href="https://www.microsoft.com/en-us/download/details.aspx?id=104781">SQL Express 2022</a> <br>
+3. Clone the repository.
+4. Rebuild the solution.
+5. Open the Package Manager Console by going to Tools > NuGet Package Manager > Package Manager Console.
+6. Type Add-Migration Products in the console.
+7. Type Update-Database in the console.
+
+Now you can run the application.
 
 Main Page
 =
